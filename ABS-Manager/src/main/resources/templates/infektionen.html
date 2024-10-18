@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Infektionsliste</title>
+</head>
+<body>
+
+<h1>Liste aller Infektionen</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Erregertypen</th>
+        <th>Aktionen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="infektion : ${infektionen}">
+        <td th:text="${infektion.id}"></td>
+        <td th:text="${infektion.name}"></td>
+        <td>
+            <ul>
+                <li th:each="erregertyp : ${infektion.erregertypen}" th:text="${erregertyp.name}"></li>
+            </ul>
+        </td>
+        <td>
+            <a th:href="@{/infektionen/edit/{id}(id=${infektion.id})}">Bearbeiten</a> |
+            <a th:href="@{/infektionen/delete/{id}(id=${infektion.id})}">Löschen</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/infektionen/create">Neue Infektion anlegen</a>
+
+</body>
+</html>

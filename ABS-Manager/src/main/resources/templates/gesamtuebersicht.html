@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gesamtübersicht</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>Gesamtübersicht</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Behandlungshinweis ID</th>
+        <th>Hinweis</th>
+        <th>Zusatzmaßnahmen</th>
+        <th>Infektion</th>
+        <th>Erregertypen</th>
+        <th>Therapien</th>
+        <th>Medikamente</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="behandlungshinweis : ${behandlungshinweise}">
+        <td th:text="${behandlungshinweis.id}">1</td>
+        <td th:text="${behandlungshinweis.hinweis}">Hinweis</td>
+        <td th:text="${behandlungshinweis.zusatzMassnahmen}">Zusatzmaßnahmen</td>
+
+        <!-- Infektion -->
+        <td th:text="${behandlungshinweis.infektion.name}">Infektion</td>
+
+        <!-- Erregertypen (Mehrere Erregertypen einer Infektion als Liste) -->
+        <td>
+            <ul>
+                <li th:each="erregertyp : ${behandlungshinweis.infektion.erregertypen}" th:text="${erregertyp.name}"></li>
+            </ul>
+        </td>
+
+        <!-- Therapien (Mehrere Therapien einer Infektion als Liste) -->
+        <td>
+            <ul>
+                <li th:each="therapie : ${behandlungshinweis.infektion.therapien}" th:text="${therapie.name}"></li>
+            </ul>
+        </td>
+
+        <!-- Medikamente (Mehrere Medikamente einer Therapie als Liste) -->
+        <td>
+            <ul>
+                <li th:each="therapie : ${behandlungshinweis.infektion.therapien}">
+                    <span th:text="${therapie.name}"></span>
+                    <ul>
+                        <li th:each="medikament : ${therapie.medikamente}" th:text="${medikament.name}"></li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

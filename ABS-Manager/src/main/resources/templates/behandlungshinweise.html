@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Behandlungshinweise Verwaltung</title>
+</head>
+<body>
+<h1>Behandlungshinweise</h1>
+
+<!-- Formular zum Erstellen oder Bearbeiten eines Behandlungshinweises -->
+<h2>Neuen Behandlungshinweis erstellen/bearbeiten</h2>
+<form th:action="@{/behandlungshinweise/create}" th:object="${behandlungshinweis}" method="post">
+    <label for="hinweis">Hinweis:</label>
+    <input type="text" id="hinweis" th:field="*{hinweis}" required>
+
+    <label for="zusatzMassnahmen">Zusatzmaßnahmen:</label>
+    <input type="text" id="zusatzMassnahmen" th:field="*{zusatzMassnahmen}" required>
+
+    <!-- Dropdown zur Auswahl der Infektion -->
+    <label for="infektion">Infektion:</label>
+    <select id="infektion" th:field="*{infektion.id}" required>
+        <option th:each="infektion : ${infektionen}" th:value="${infektion.id}" th:text="${infektion.name}"></option>
+    </select>
+
+    <button type="submit">Speichern</button>
+</form>
+
+
+<!-- Liste aller Behandlungshinweise -->
+<h2>Alle Behandlungshinweise</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Hinweis</th>
+        <th>Zusatzmaßnahmen</th>
+        <th>Aktionen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="behandlungshinweis : ${behandlungshinweise}">
+        <td th:text="${behandlungshinweis.id}">1</td>
+        <td th:text="${behandlungshinweis.hinweis}">Hinweis</td>
+        <td th:text="${behandlungshinweis.zusatzMassnahmen}">Zusatzmaßnahmen</td>
+        <td>
+            <a th:href="@{/behandlungshinweise/edit/{id}(id=${behandlungshinweis.id})}">Bearbeiten</a>
+            <form th:action="@{/behandlungshinweise/delete/{id}(id=${behandlungshinweis.id})}" method="post">
+                <button type="submit">Löschen</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

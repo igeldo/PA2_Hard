@@ -1,0 +1,41 @@
+@startuml
+class Infektion {
+  Long id
+  String name
+  {method} getErregertypen(): List<Erregertyp>
+  {method} getTherapien(): List<Therapie>
+}
+
+class Erregertyp {
+  Long id
+  String name
+  {method} getInfektionen(): List<Infektion>
+}
+
+class Therapie {
+  Long id
+  String name
+  Integer dauer
+  {method} getMedikamente(): List<Medikament>
+  {method} getInfektion(): Infektion
+}
+
+class Medikament {
+  Long id
+  String name
+  String dosierung
+  {method} getTherapien(): List<Therapie>
+}
+
+class Behandlungshinweis {
+  Long id
+  String hinweis
+  String zusatzMassnahmen
+  {method} getInfektion(): Infektion
+}
+
+Infektion --* Erregertyp : Many-to-Many
+Infektion --* Therapie : One-to-Many
+Therapie --* Medikament : Many-to-Many
+Behandlungshinweis --> Infektion : Many-to-One
+@enduml

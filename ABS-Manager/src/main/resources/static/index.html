@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpringAi</title>
+    <script>
+        const infectionData = {
+            "Cholecystitis": ["Enterobacteriales", "Enterococcus spp.", "Anaerobier", "Pseudomonas spp."],
+            "Cholangitis (bakterielle)": ["Enterobacteriales", "Enterococcus spp.", "Anaerobier", "Pseudomonas spp."],
+            "Clostridioides difficile-Infektion (CDI)": ["Clostridioides difficile"],
+            "Divertikulitis": ["Enterobacteriales", "Enterococcus spp.", "Bacteroides spp."],
+            "Enteritis (akute bakterielle)": ["Campylobacter spp.", "Salmonella spp.", "Yersinien", "Shigella spp."],
+            "Enteritis durch Parasiten": ["Amöben", "Enterobiasis", "Oxyuriasis", "Madenwürmer", "Askariasis", "Spulwürmer", "Zestoden", "Bandwürmer", "Hymenolepis nana", "Trichuriasis", "Peitschenwürmer"],
+            "Helicobacter pylori-Eradikationstherapie": ["Helicobacter pylori"],
+            "Akute Pankreatitis (nekrotisierend)": ["Enterobacteriales", "Enterococcus spp.", "Staphylococcus spp.", "Anaerobier"],
+            // Füge alle anderen Einträge hinzu...
+        };
+
+        function updatePathogens() {
+            const infection = document.getElementById("dropdown1").value;
+            const pathogenDropdown = document.getElementById("dropdown2");
+
+            // Leere die zweite Dropdown-Liste
+            pathogenDropdown.innerHTML = '';
+
+            // Hol die relevanten Erreger basierend auf der Auswahl im ersten Dropdown
+            const pathogens = infectionData[infection];
+
+            if (pathogens) {
+                // Füge die Optionen in das zweite Dropdown-Menü ein
+                pathogens.forEach(pathogen => {
+                    const option = document.createElement("option");
+                    option.value = pathogen;
+                    option.text = pathogen;
+                    pathogenDropdown.appendChild(option);
+                });
+            }
+        }
+
+        async function sendMessage() {
+            const dropdown1Value = document.getElementById("dropdown1").value;
+            const dropdown2Value = document.getElementById("dropdown2").value;
+
+            const response = await fetch(`/ai/simple?value1=${encodeURIComponent(dropdown1Value)}&value2=${encodeURIComponent(dropdown2Value)}`);
+            const data = await response.json();
+            document.getElementById("responseOllama").innerText = `${data.ollama}`;
+            document.getElementById("responseOpenAI").innerText = `${data.openai}`;
+        }
+    </script>
+</head>
+<body>
+<h1>SpringAi Test</h1>
+
+<label for="dropdown1">Select infection type:</label>
+<select id="dropdown1" onchange="updatePathogens()">
+    <option value="">-- Select an infection --</option>
+    <option value="Cholecystitis">Cholecystitis</option>
+    <option value="Cholangitis (bakterielle)">Cholangitis (bakterielle)</option>
+    <option value="Clostridioides difficile-Infektion (CDI)">Clostridioides difficile-Infektion (CDI)</option>
+    <option value="Divertikulitis">Divertikulitis</option>
+    <option value="Enteritis (akute bakterielle)">Enteritis (akute bakterielle)</option>
+    <option value="Enteritis durch Parasiten">Enteritis durch Parasiten</option>
+    <option value="Helicobacter pylori-Eradikationstherapie">Helicobacter pylori-Eradikationstherapie</option>
+    <option value="Akute Pankreatitis (nekrotisierend)">Akute Pankreatitis (nekrotisierend)</option>
+    <!-- Füge hier die weiteren Infektionen hinzu -->
+</select>
+
+<label for="dropdown2">Select pathogen:</label>
+<select id="dropdown2">
+    <option value="">-- Select a pathogen --</option>
+</select>
+
+<button onclick="sendMessage()">Send</button>
+
+<h3>Antwort Ollama:</h3>
+<p id="responseOllama"></p>
+
+<h3>Antwort OpenAI:</h3>
+<p id="responseOpenAI"></p>
+</body>
+</html>

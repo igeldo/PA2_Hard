@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Erregertypen Verwaltung</title>
+</head>
+<body>
+<h1>Erregertypen</h1>
+
+<!-- Formular zum Erstellen eines neuen Erregertyps -->
+<h2>Neuen Erregertyp erstellen</h2>
+<form th:action="@{/erregertypen/create}" th:object="${erregertyp}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required>
+    <button type="submit">Speichern</button>
+</form>
+
+<!-- Liste aller Erregertypen -->
+<h2>Alle Erregertypen</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Aktionen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="erregertyp : ${erregertypen}">
+        <td th:text="${erregertyp.id}">1</td>
+        <td th:text="${erregertyp.name}">Erregertyp Name</td>
+        <td>
+            <a th:href="@{/erregertypen/edit/{id}(id=${erregertyp.id})}">Bearbeiten</a>
+            <form th:action="@{/api/erregertypen/{id}(id=${erregertyp.id})}" method="post" th:method="delete">
+                <button type="submit">Löschen</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

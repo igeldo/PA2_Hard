@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Medikamente Verwaltung</title>
+</head>
+<body>
+<h1>Medikamente</h1>
+
+<!-- Formular zum Erstellen oder Bearbeiten eines Medikaments -->
+<h2>Neues Medikament erstellen/bearbeiten</h2>
+<form th:action="@{/medikamente/create}" th:object="${medikament}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required>
+    <label for="dosierung">Dosierung:</label>
+    <input type="text" id="dosierung" th:field="*{dosierung}" required>
+    <button type="submit">Speichern</button>
+</form>
+
+<!-- Liste aller Medikamente -->
+<h2>Alle Medikamente</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Dosierung</th>
+        <th>Aktionen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="medikament : ${medikamente}">
+        <td th:text="${medikament.id}">1</td>
+        <td th:text="${medikament.name}">Medikament Name</td>
+        <td th:text="${medikament.dosierung}">Dosierung</td>
+        <td>
+            <!-- Bearbeiten Link -->
+            <a th:href="@{/medikamente/edit/{id}(id=${medikament.id})}">Bearbeiten</a>
+            <!-- Löschen Button -->
+            <form th:action="@{/medikamente/delete/{id}(id=${medikament.id})}" method="post">
+                <button type="submit">Löschen</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

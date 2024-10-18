@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Therapien Verwaltung</title>
+</head>
+<body>
+<h1>Therapien</h1>
+
+<!-- Formular zum Erstellen oder Bearbeiten einer Therapie -->
+<!-- Formular zum Erstellen oder Bearbeiten einer Therapie -->
+<h2>Neue Therapie erstellen/bearbeiten</h2>
+<form th:action="@{/therapien/create}" th:object="${therapie}" method="post">
+    <!-- Eingabe für den Namen der Therapie -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required>
+
+    <!-- Eingabe für die Dauer der Therapie -->
+    <label for="dauer">Dauer (Tage):</label>
+    <input type="number" id="dauer" th:field="*{dauer}" required>
+
+    <!-- Dropdown zur Auswahl der Infektion -->
+    <label for="infektion">Infektion:</label>
+    <select id="infektion" name="infektionId" required>
+        <option th:each="infektion : ${infektionen}" th:value="${infektion.id}" th:text="${infektion.name}"></option>
+    </select>
+
+    <!-- Multi-Select zur Auswahl der Medikamente -->
+    <!-- Multi-Select zur Auswahl der Medikamente -->
+    <label for="medikamente">Medikamente auswählen:</label>
+    <select id="medikamente" name="medikamentIds" multiple required>
+        <option th:each="medikament : ${medikamente}" th:value="${medikament.id}" th:text="${medikament.name}"></option>
+    </select>
+
+
+    <button type="submit">Speichern</button>
+</form>
+
+
+<!-- Liste aller Therapien -->
+<h2>Alle Therapien</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Dauer</th>
+        <th>Infektion</th>
+        <th>Aktionen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="therapie : ${therapien}">
+        <td th:text="${therapie.id}">1</td>
+        <td th:text="${therapie.name}">Therapie Name</td>
+        <td th:text="${therapie.dauer}">7</td>
+        <td th:text="${therapie.infektion.name}">Infektion Name</td>
+        <td>
+            <!-- Bearbeiten Link -->
+            <a th:href="@{/therapien/edit/{id}(id=${therapie.id})}">Bearbeiten</a>
+            <!-- Löschen Button -->
+            <form th:action="@{/therapien/delete/{id}(id=${therapie.id})}" method="post">
+                <button type="submit">Löschen</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

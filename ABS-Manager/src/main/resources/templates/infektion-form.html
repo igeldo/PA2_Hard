@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Infektion anlegen</title>
+</head>
+<body>
+
+<h1>Infektion anlegen</h1>
+
+<form th:action="@{/infektionen/create}" th:object="${infektion}" method="post">
+    <!-- Eingabefeld für den Infektionsnamen -->
+    <label for="name">Infektionsname:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Infektionsname eingeben" required>
+    <br><br>
+
+    <!-- Multi-Select für Erregertypen -->
+    <label for="erregertypen">Erregertypen auswählen:</label>
+    <select id="erregertypen" name="erregertypIds" multiple required>
+        <!-- Alle Erregertypen anzeigen und mehrfache Auswahl ermöglichen -->
+        <option th:each="erregertyp : ${erregertypen}"
+                th:value="${erregertyp.id}"
+                th:text="${erregertyp.name}"
+                th:selected="${infektion.erregertypen.contains(erregertyp)}">
+        </option>
+    </select>
+    <br><br>
+
+    <!-- Absenden des Formulars -->
+    <button type="submit">Speichern</button>
+</form>
+
+</body>
+</html>
