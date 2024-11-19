@@ -8,7 +8,7 @@
 
 <!-- Formular zum Erstellen eines neuen Erregertyps -->
 <h2>Neuen Erregertyp erstellen</h2>
-<form th:action="@{/erregertypen/create}" th:object="${erregertyp}" method="post">
+<form th:action="@{/erregertypen/create}" th:object="${erregertyp}" method="post" onsubmit="redirectToInfektionForm()">
     <label for="name">Name:</label>
     <input type="text" id="name" th:field="*{name}" required>
     <button type="submit">Speichern</button>
@@ -30,13 +30,26 @@
         <td th:text="${erregertyp.name}">Erregertyp Name</td>
         <td>
             <a th:href="@{/erregertypen/edit/{id}(id=${erregertyp.id})}">Bearbeiten</a>
-            <form th:action="@{/api/erregertypen/{id}(id=${erregertyp.id})}" method="post" th:method="delete">
+            <form th:action="@{/erregertypen/delete/{id}(id=${erregertyp.id})}" method="post" th:method="delete">
                 <button type="submit">Löschen</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<!-- Button für die Weiterleitung zur Infektionen-Create-Seite -->
+<h2>Weitere Aktionen</h2>
+<a href="/infektionen/create"><button type="button">Infektion erstellen</button></a>
+
+<script>
+    // Funktion für Weiterleitung nach dem Speichern eines Erregertyps
+    function redirectToInfektionForm() {
+        setTimeout(() => {
+            window.location.href = "/infektionen/create"; // Weiterleitung zur Infektion anlegen-Seite
+        }, 100); // kurze Verzögerung für Weiterleitung
+    }
+</script>
 
 </body>
 </html>

@@ -7,7 +7,7 @@
 
 <h1>Infektion anlegen</h1>
 
-<form th:action="@{/infektionen/create}" th:object="${infektion}" method="post">
+<form th:action="@{/infektionen/create}" th:object="${infektion}" method="post" onsubmit="redirectToMedikamente()">
     <!-- Eingabefeld für den Infektionsnamen -->
     <label for="name">Infektionsname:</label>
     <input type="text" id="name" th:field="*{name}" placeholder="Infektionsname eingeben" required>
@@ -28,6 +28,15 @@
     <!-- Absenden des Formulars -->
     <button type="submit">Speichern</button>
 </form>
+
+<script>
+    // Funktion für Weiterleitung nach dem Speichern der Infektion
+    function redirectToMedikamente() {
+        setTimeout(() => {
+            window.location.href = "/medikamente/view"; // Weiterleitung zur Medikamente-Seite
+        }, 100); // kurze Verzögerung für Weiterleitung
+    }
+</script>
 
 </body>
 </html>

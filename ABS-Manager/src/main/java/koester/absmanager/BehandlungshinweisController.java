@@ -29,8 +29,11 @@ public class BehandlungshinweisController {
 
     @PostMapping("/create")
     public String createBehandlungshinweis(@ModelAttribute("behandlungshinweis") Behandlungshinweis behandlungshinweis) {
+        // Behandlungshinweis speichern
         behandlungshinweisService.createBehandlungshinweis(behandlungshinweis);
-        return "redirect:/behandlungshinweise/view";
+
+        // Nach dem Speichern zur Gesamtübersicht weiterleiten
+        return "redirect:/gesamtuebersicht/view"; // Weiterleitung zur Gesamtübersicht-Seite nach dem Speichern
     }
 
     @GetMapping("/edit/{id}")

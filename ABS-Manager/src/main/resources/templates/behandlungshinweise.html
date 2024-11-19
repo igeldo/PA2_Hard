@@ -8,7 +8,7 @@
 
 <!-- Formular zum Erstellen oder Bearbeiten eines Behandlungshinweises -->
 <h2>Neuen Behandlungshinweis erstellen/bearbeiten</h2>
-<form th:action="@{/behandlungshinweise/create}" th:object="${behandlungshinweis}" method="post">
+<form th:action="@{/behandlungshinweise/create}" th:object="${behandlungshinweis}" method="post" onsubmit="redirectToGesamtuebersicht()">
     <label for="hinweis">Hinweis:</label>
     <input type="text" id="hinweis" th:field="*{hinweis}" required>
 
@@ -23,7 +23,6 @@
 
     <button type="submit">Speichern</button>
 </form>
-
 
 <!-- Liste aller Behandlungshinweise -->
 <h2>Alle Behandlungshinweise</h2>
@@ -50,6 +49,15 @@
     </tr>
     </tbody>
 </table>
+
+<script>
+    // Funktion für Weiterleitung nach dem Speichern des Behandlungshinweises
+    function redirectToGesamtuebersicht() {
+        setTimeout(() => {
+            window.location.href = "/gesamtuebersicht/view"; // Weiterleitung zur Gesamtübersicht-Seite
+        }, 100); // kurze Verzögerung für Weiterleitung
+    }
+</script>
 
 </body>
 </html>

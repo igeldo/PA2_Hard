@@ -8,7 +8,7 @@
 
 <!-- Formular zum Erstellen oder Bearbeiten eines Medikaments -->
 <h2>Neues Medikament erstellen/bearbeiten</h2>
-<form th:action="@{/medikamente/create}" th:object="${medikament}" method="post">
+<form th:action="@{/medikamente/create}" th:object="${medikament}" method="post" onsubmit="redirectToTherapien()">
     <label for="name">Name:</label>
     <input type="text" id="name" th:field="*{name}" required>
     <label for="dosierung">Dosierung:</label>
@@ -43,6 +43,18 @@
     </tr>
     </tbody>
 </table>
+
+<!-- Button zur Therapien-Seite -->
+<button onclick="window.location.href='/therapien/view';">Zur Therapien-Seite</button>
+
+<script>
+    // Funktion für Weiterleitung nach dem Speichern des Medikaments
+    function redirectToTherapien() {
+        setTimeout(() => {
+            window.location.href = "/therapien/view"; // Weiterleitung zur Therapien-Seite
+        }, 100); // kurze Verzögerung für Weiterleitung
+    }
+</script>
 
 </body>
 </html>

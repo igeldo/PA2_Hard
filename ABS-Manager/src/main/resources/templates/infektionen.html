@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Infektionsliste</title>
+    <title>Infektionen Verwaltung</title>
 </head>
 <body>
+<h1>Infektionen</h1>
 
-<h1>Liste aller Infektionen</h1>
-
-<table border="1">
+<!-- Liste aller Infektionen -->
+<h2>Alle Infektionen</h2>
+<table>
     <thead>
     <tr>
         <th>ID</th>
@@ -26,14 +27,18 @@
             </ul>
         </td>
         <td>
-            <a th:href="@{/infektionen/edit/{id}(id=${infektion.id})}">Bearbeiten</a> |
-            <a th:href="@{/infektionen/delete/{id}(id=${infektion.id})}">Löschen</a>
+            <a th:href="@{/infektionen/edit/{id}(id=${infektion.id})}">Bearbeiten</a>
+            <form th:action="@{/infektionen/delete/{id}(id=${infektion.id})}" method="post" th:method="delete">
+                <button type="submit">Löschen</button>
+            </form>
         </td>
     </tr>
     </tbody>
 </table>
 
-<a href="/infektionen/create">Neue Infektion anlegen</a>
+<!-- Button zum Weiterleiten auf die Seite für Erregertypen -->
+<br>
+<a href="/erregertypen/view"><button type="button">Neue Infektion anlegen</button></a>
 
 </body>
 </html>
