@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <a th:href="@{/gesamtuebersicht/view}">Übersicht</a>
+    <a th:href="@{/erregertypen/view}">Erreger Erstellen</a>
+    <a th:href="@{/infektionen/create}">Infektion Erstellen</a>
+    <a th:href="@{/medikamente/view}">Medikament Erstellen</a>
+    <a th:href="@{/therapien/view}">Therapien Erstellen</a>
+    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise Erstellen</a>
     <title>Medikamente Verwaltung</title>
 </head>
 <body>
@@ -43,18 +49,6 @@
     </tr>
     </tbody>
 </table>
-
-<!-- Button zur Therapien-Seite -->
-<button onclick="window.location.href='/therapien/view';">Zur Therapien-Seite</button>
-
-<script>
-    // Funktion für Weiterleitung nach dem Speichern des Medikaments
-    function redirectToTherapien() {
-        setTimeout(() => {
-            window.location.href = "/therapien/view"; // Weiterleitung zur Therapien-Seite
-        }, 100); // kurze Verzögerung für Weiterleitung
-    }
-</script>
 
 </body>
 </html>

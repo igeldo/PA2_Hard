@@ -55,6 +55,3 @@ http://localhost:8080/medikamente/view
 ```bash
 http://localhost:8080/therapien/view
 ```
-```bash
-http://localhost:8080/login
-```

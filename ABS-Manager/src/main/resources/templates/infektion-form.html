@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Infektion anlegen</title>
+    <a th:href="@{/gesamtuebersicht/view}">Übersicht</a>
+    <a th:href="@{/erregertypen/view}">Erreger Erstellen</a>
+    <a th:href="@{/infektionen/create}">Infektion Erstellen</a>
+    <a th:href="@{/medikamente/view}">Medikament Erstellen</a>
+    <a th:href="@{/therapien/view}">Therapien Erstellen</a>
+    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise Erstellen</a>
+    <title>Infektionen Verwaltung</title>
 </head>
 <body>
+<h1>Infektionen</h1>
 
-<h1>Infektion anlegen</h1>
-
+<!-- Abschnitt: Infektion anlegen -->
+<h2>Infektion anlegen</h2>
 <form th:action="@{/infektionen/create}" th:object="${infektion}" method="post" onsubmit="redirectToMedikamente()">
     <!-- Eingabefeld für den Infektionsnamen -->
     <label for="name">Infektionsname:</label>
@@ -16,7 +23,6 @@
     <!-- Multi-Select für Erregertypen -->
     <label for="erregertypen">Erregertypen auswählen:</label>
     <select id="erregertypen" name="erregertypIds" multiple required>
-        <!-- Alle Erregertypen anzeigen und mehrfache Auswahl ermöglichen -->
         <option th:each="erregertyp : ${erregertypen}"
                 th:value="${erregertyp.id}"
                 th:text="${erregertyp.name}"
@@ -29,14 +35,35 @@
     <button type="submit">Speichern</button>
 </form>
 
-<script>
-    // Funktion für Weiterleitung nach dem Speichern der Infektion
-    function redirectToMedikamente() {
-        setTimeout(() => {
-            window.location.href = "/medikamente/view"; // Weiterleitung zur Medikamente-Seite
-        }, 100); // kurze Verzögerung für Weiterleitung
-    }
-</script>
+<!-- Abschnitt: Liste aller Infektionen -->
+<h2>Alle Infektionen</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Erregertypen</th>
+        <th>Aktionen</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="infektion : ${infektionen}">
+        <td th:text="${infektion.id}"></td>
+        <td th:text="${infektion.name}"></td>
+        <td>
+            <ul>
+                <li th:each="erregertyp : ${infektion.erregertypen}" th:text="${erregertyp.name}"></li>
+            </ul>
+        </td>
+        <td>
+            <a th:href="@{/infektionen/edit/{id}(id=${infektion.id})}">Bearbeiten</a>
+            <form th:action="@{/infektionen/delete/{id}(id=${infektion.id})}" method="post" style="display:inline;">
+                <button type="submit">Löschen</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

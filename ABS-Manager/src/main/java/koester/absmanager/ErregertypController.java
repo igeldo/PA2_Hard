@@ -64,4 +64,5 @@ public class ErregertypController {
         erregertypService.deleteErregertyp(id);
         return "redirect:/erregertypen/view"; // Nach dem Löschen zurück zur Übersicht
     }
+
 }

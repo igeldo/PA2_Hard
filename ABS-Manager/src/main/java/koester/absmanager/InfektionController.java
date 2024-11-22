@@ -18,6 +18,8 @@ public class InfektionController {
 
     @Autowired
     private ErregertypService erregertypService;
+    @Autowired
+    private InfektionsartService infektionsartService;
 
     // Anzeige der Liste aller Infektionen
     @GetMapping("/view")
@@ -32,17 +34,18 @@ public class InfektionController {
     public String showCreateForm(Model model) {
         model.addAttribute("infektion", new Infektion());
         model.addAttribute("erregertypen", erregertypService.getAllErregertypen()); // Liste der Erregertypen
+        model.addAttribute("infektionsarten", infektionsartService.findAll()); // Liste der Infektionsarten hinzufügen
         return "infektion-form"; // verweist auf infektion-form.html
     }
 
-
     // Speichern einer neuen Infektion mit den ausgewählten Erregertypen
     @PostMapping("/create")
-    public String createInfektion(@ModelAttribute Infektion infektion, @RequestParam List<Long> erregertypIds) {
-        List<Erregertyp> erregertypen = erregertypService.findAllByIds(erregertypIds); // Finde alle ausgewählten Erregertypen
-        infektion.setErregertypen(erregertypen); // Weise die Erregertypen der Infektion zu
-        infektionService.saveInfektion(infektion); // Speichere die Infektion
-        return "redirect:/infektionen/view"; // Weiterleitung zur Übersicht nach dem Speichern
+    public String createForm(Model model) {
+        model.addAttribute("infektion", new Infektion());
+        model.addAttribute("infektionsarten", infektionsartService.findAll()); // Infektionsarten laden
+        System.out.println("Infektionsarten: " + infektionsartService.findAll());
+        model.addAttribute("erregertypen", erregertypService.getAllErregertypen()); // Erregertypen laden
+        return "infektion-form";
     }
 
 
@@ -54,7 +57,7 @@ public class InfektionController {
             model.addAttribute("erregertypen", erregertypService.getAllErregertypen()); // Füge die Erregertypen hinzu
             return "infektion-form"; // verweist auf infektion-form.html (zum Bearbeiten)
         } else {
-            return "redirect:/infektionen/view"; // Wenn keine Infektion gefunden wurde, zur Liste zurückkehren
+            return "redirect:/gesamtuebersicht/view"; // Wenn keine Infektion gefunden wurde, zur Liste zurückkehren
         }
     }
 
@@ -65,16 +68,20 @@ public class InfektionController {
         List<Erregertyp> erregertypen = erregertypService.findAllByIds(erregertypIds); // Finde ausgewählte Erregertypen
         infektion.setErregertypen(erregertypen); // Setze die Erregertypen für die Infektion
         infektionService.updateInfektion(id, infektion); // Speichere die Änderungen
-        return "redirect:/infektionen/view"; // Nach dem Update zur Übersicht weiterleiten
+        return "redirect:/infektionen/create"; // Nach dem Update zur Übersicht weiterleiten
     }
 
     // Löschen einer Infektion
     @GetMapping("/delete/{id}")
     public String deleteInfektion(@PathVariable Long id) {
         infektionService.deleteInfektion(id); // Löschen der Infektion
-        return "redirect:/infektionen/view"; // Nach dem Löschen zur Liste weiterleiten
+        return "redirect:/infektionen/create"; // Nach dem Löschen zur Liste weiterleiten
     }
-
+    //    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<Void> deleteInfektion(@PathVariable Long id) {
+//        infektionService.deleteInfektion(id);
+//        return ResponseEntity.noContent().build();
+//    }
     // Abrufen einer einzelnen Infektion per API
     @GetMapping("/{id}")
     public ResponseEntity<Infektion> getInfektionById(@PathVariable Long id) {

@@ -4,21 +4,25 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-public class Login {
+import java.util.List;
 
-    @Setter
+@Entity
+public class Infektionsart {
     @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
     @Getter
-    private String username;
+    @Setter
+    @Column(nullable = false)
+    private String name;
 
-    @Setter
     @Getter
-    private String password;
+    @Setter
+    @OneToMany(mappedBy = "infektionsart")
+    private List<Infektion> infektionen;
+
 
 }

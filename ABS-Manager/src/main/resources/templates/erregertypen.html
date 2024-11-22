@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <a th:href="@{/gesamtuebersicht/view}">Übersicht</a>
+    <a th:href="@{/erregertypen/view}">Erreger Erstellen</a>
+    <a th:href="@{/infektionen/create}">Infektion Erstellen</a>
+    <a th:href="@{/medikamente/view}">Medikament Erstellen</a>
+    <a th:href="@{/therapien/view}">Therapien Erstellen</a>
+    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise Erstellen</a>
     <title>Erregertypen Verwaltung</title>
 </head>
 <body>
@@ -30,26 +36,13 @@
         <td th:text="${erregertyp.name}">Erregertyp Name</td>
         <td>
             <a th:href="@{/erregertypen/edit/{id}(id=${erregertyp.id})}">Bearbeiten</a>
-            <form th:action="@{/erregertypen/delete/{id}(id=${erregertyp.id})}" method="post" th:method="delete">
+            <form th:action="@{/api/erregertypen/{id}(id=${erregertyp.id})}" method="post" th:method="delete">
                 <button type="submit">Löschen</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
-
-<!-- Button für die Weiterleitung zur Infektionen-Create-Seite -->
-<h2>Weitere Aktionen</h2>
-<a href="/infektionen/create"><button type="button">Infektion erstellen</button></a>
-
-<script>
-    // Funktion für Weiterleitung nach dem Speichern eines Erregertyps
-    function redirectToInfektionForm() {
-        setTimeout(() => {
-            window.location.href = "/infektionen/create"; // Weiterleitung zur Infektion anlegen-Seite
-        }, 100); // kurze Verzögerung für Weiterleitung
-    }
-</script>
 
 </body>
 </html>

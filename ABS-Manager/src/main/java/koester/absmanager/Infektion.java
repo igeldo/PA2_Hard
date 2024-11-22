@@ -3,6 +3,7 @@ package koester.absmanager;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,11 @@ public class Infektion {
     @Setter
     @Getter
     @OneToMany(mappedBy = "infektion")
-    private List<Therapie> therapien;
+    public List<Therapie> therapien;
 
-
+    @Setter
+    @Getter
+    @ManyToOne
+    @JoinColumn(name = "infektionsart_id")
+    private Infektionsart infektionsart;
 }

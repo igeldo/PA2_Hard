@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <a th:href="@{/gesamtuebersicht/view}">Übersicht</a>
+    <a th:href="@{/erregertypen/view}">Erreger Erstellen</a>
+    <a th:href="@{/infektionen/create}">Infektion Erstellen</a>
+    <a th:href="@{/medikamente/view}">Medikament Erstellen</a>
+    <a th:href="@{/therapien/view}">Therapien Erstellen</a>
+    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise Erstellen</a>
     <title>Gesamtübersicht</title>
     <style>
         table {
@@ -34,11 +40,6 @@
 </head>
 <body>
 <h1>Gesamtübersicht</h1>
-
-<div class="button-container">
-    <!-- Button zur Weiterleitung zur Infektionen-Seite -->
-    <a href="/infektionen/view">Zu den Infektionen</a>
-</div>
 
 <table>
     <thead>
