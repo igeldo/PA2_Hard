@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <a th:href="@{/gesamtuebersicht/view}">Übersicht</a>
-    <a th:href="@{/erregertypen/view}">Erreger Erstellen</a>
-    <a th:href="@{/infektionen/create}">Infektion Erstellen</a>
-    <a th:href="@{/medikamente/view}">Medikament Erstellen</a>
-    <a th:href="@{/therapien/view}">Therapien Erstellen</a>
-    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise Erstellen</a>
+    <a th:href="@{/erregertypen/view}">Erregertypen</a>
+    <a th:href="@{/infektionen/create}">Infektionen</a>
+    <a th:href="@{/medikamente/view}">Medikamente</a>
+    <a th:href="@{/therapien/view}">Therapien</a>
+    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise</a>
+    <link rel="stylesheet" type="text/css" href="/Fachhochschule_theme.css">
     <title>Medikamente Verwaltung</title>
 </head>
 <body>
@@ -35,14 +36,12 @@
     </thead>
     <tbody>
     <tr th:each="medikament : ${medikamente}">
-        <td th:text="${medikament.id}">1</td>
-        <td th:text="${medikament.name}">Medikament Name</td>
-        <td th:text="${medikament.dosierung}">Dosierung</td>
+        <td th:text="${medikament.id}"></td>
+        <td th:text="${medikament.name}"></td>
+        <td th:text="${medikament.dosierung}"></td>
         <td>
-            <!-- Bearbeiten Link -->
-            <a th:href="@{/medikamente/edit/{id}(id=${medikament.id})}">Bearbeiten</a>
-            <!-- Löschen Button -->
-            <form th:action="@{/medikamente/delete/{id}(id=${medikament.id})}" method="post">
+            <a th:href="@{/medikamente/edit/{id}(id=${medikament.id})}" style="margin-right: 10px;">Bearbeiten</a>
+            <form th:action="@{/medikamente/delete/{id}(id=${medikament.id})}" method="post" style="display: inline;">
                 <button type="submit">Löschen</button>
             </form>
         </td>

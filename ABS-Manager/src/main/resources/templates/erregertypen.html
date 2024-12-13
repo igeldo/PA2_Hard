@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <a th:href="@{/gesamtuebersicht/view}">Übersicht</a>
-    <a th:href="@{/erregertypen/view}">Erreger Erstellen</a>
-    <a th:href="@{/infektionen/create}">Infektion Erstellen</a>
-    <a th:href="@{/medikamente/view}">Medikament Erstellen</a>
-    <a th:href="@{/therapien/view}">Therapien Erstellen</a>
-    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise Erstellen</a>
+    <a th:href="@{/erregertypen/view}">Erregertypen</a>
+    <a th:href="@{/infektionen/create}">Infektionen</a>
+    <a th:href="@{/medikamente/view}">Medikamente</a>
+    <a th:href="@{/therapien/view}">Therapien</a>
+    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise</a>
+    <link rel="stylesheet" type="text/css" href="/Fachhochschule_theme.css">
     <title>Erregertypen Verwaltung</title>
 </head>
 <body>
@@ -32,11 +33,11 @@
     </thead>
     <tbody>
     <tr th:each="erregertyp : ${erregertypen}">
-        <td th:text="${erregertyp.id}">1</td>
-        <td th:text="${erregertyp.name}">Erregertyp Name</td>
+        <td th:text="${erregertyp.id}"></td>
+        <td th:text="${erregertyp.name}"></td>
         <td>
-            <a th:href="@{/erregertypen/edit/{id}(id=${erregertyp.id})}">Bearbeiten</a>
-            <form th:action="@{/api/erregertypen/{id}(id=${erregertyp.id})}" method="post" th:method="delete">
+            <a th:href="@{/erregertypen/edit/{id}(id=${erregertyp.id})}" style="margin-right: 10px;">Bearbeiten</a>
+            <form th:action="@{/api/erregertypen/{id}(id=${erregertyp.id})}" method="post" th:method="delete" style="display: inline;">
                 <button type="submit">Löschen</button>
             </form>
         </td>

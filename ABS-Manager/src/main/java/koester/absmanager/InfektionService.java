@@ -14,7 +14,11 @@ public class InfektionService {
 
     // Methode, um alle Infektionen abzurufen
     public List<Infektion> getAllInfektionen() {
-        return infektionRepository.findAll();
+        List<Infektion> infektionen = infektionRepository.findAll();
+        if (infektionen.isEmpty()) {
+            System.out.println("Keine Infektionen in der Datenbank gefunden.");
+        }
+        return infektionen;
     }
 
     // Methode, um eine bestimmte Infektion nach ID zu finden

@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <a th:href="@{/gesamtuebersicht/view}">Übersicht</a>
-    <a th:href="@{/erregertypen/view}">Erreger Erstellen</a>
-    <a th:href="@{/infektionen/create}">Infektion Erstellen</a>
-    <a th:href="@{/medikamente/view}">Medikament Erstellen</a>
-    <a th:href="@{/therapien/view}">Therapien Erstellen</a>
-    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise Erstellen</a>
+    <a th:href="@{/erregertypen/view}">Erregertypen</a>
+    <a th:href="@{/infektionen/create}">Infektionen</a>
+    <a th:href="@{/medikamente/view}">Medikamente</a>
+    <a th:href="@{/therapien/view}">Therapien</a>
+    <a th:href="@{/behandlungshinweise/view}">Behandlungshinweise</a>
+    <link rel="stylesheet" type="text/css" href="/Fachhochschule_theme.css">
     <title>Therapien Verwaltung</title>
 </head>
 <body>
@@ -43,24 +44,31 @@
         <th>Name</th>
         <th>Dauer</th>
         <th>Infektion</th>
+        <th>Medikamente</th>
         <th>Aktionen</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="therapie : ${therapien}">
-        <td th:text="${therapie.id}">1</td>
-        <td th:text="${therapie.name}">Therapie Name</td>
-        <td th:text="${therapie.dauer}">7</td>
-        <td th:text="${therapie.infektion.name}">Infektion Name</td>
+        <td th:text="${therapie.id}"></td>
+        <td th:text="${therapie.name}"></td>
+        <td th:text="${therapie.dauer}"></td>
+        <td th:text="${therapie.infektion.name}"></td>
         <td>
-            <a th:href="@{/therapien/edit/{id}(id=${therapie.id})}">Bearbeiten</a>
-            <form th:action="@{/therapien/delete/{id}(id=${therapie.id})}" method="post">
+            <ul>
+                <li th:each="medikament : ${therapie.medikamente}" th:text="${medikament.name}"></li>
+            </ul>
+        </td>
+        <td>
+            <a th:href="@{/therapien/edit/{id}(id=${therapie.id})}" style="margin-right: 10px;">Bearbeiten</a>
+            <form th:action="@{/therapien/delete/{id}(id=${therapie.id})}" method="post" style="display: inline;">
                 <button type="submit">Löschen</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
 
 </body>
 </html>

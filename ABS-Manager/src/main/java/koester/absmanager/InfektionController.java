@@ -25,31 +25,28 @@ public class InfektionController {
     @GetMapping("/view")
     public String showAllInfektionen(Model model) {
         List<Infektion> infektionen = infektionService.getAllInfektionen();
+        System.out.println("Infektionenliste: " + infektionen);
         model.addAttribute("infektionen", infektionen); // Übergibt die Liste der Infektionen
-        return "infektionen"; // verweist auf infektionen.html
+
+        List<Erregertyp> erregertypen = erregertypService.getAllErregertypen();
+        model.addAttribute("infektionen", infektionen); // Übergibt die Liste der Infektionen
+
+        //model.addAttribute("infektionen", new Infektion());
+        return "infektion-form"; // verweist auf infektionen.html
     }
 
     // Anzeige des Formulars zum Anlegen einer neuen Infektion
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("infektion", new Infektion());
-        model.addAttribute("erregertypen", erregertypService.getAllErregertypen()); // Liste der Erregertypen
-        model.addAttribute("infektionsarten", infektionsartService.findAll()); // Liste der Infektionsarten hinzufügen
-        return "infektion-form"; // verweist auf infektion-form.html
-    }
-
-    // Speichern einer neuen Infektion mit den ausgewählten Erregertypen
-    @PostMapping("/create")
-    public String createForm(Model model) {
-        model.addAttribute("infektion", new Infektion());
-        model.addAttribute("infektionsarten", infektionsartService.findAll()); // Infektionsarten laden
-        System.out.println("Infektionsarten: " + infektionsartService.findAll());
-        model.addAttribute("erregertypen", erregertypService.getAllErregertypen()); // Erregertypen laden
+        model.addAttribute("erregertypen", erregertypService.getAllErregertypen());
+        model.addAttribute("infektionsarten", infektionsartService.findAll());
+        model.addAttribute("infektionen", infektionService.getAllInfektionen()); // Liste hinzufügen
         return "infektion-form";
     }
 
-
     @GetMapping("/edit/{id}")
+    //hier fehlt noch mehr (Laden der bestehenden Funktion, Laden aller anderen Daten wie beim Anzeigen)
     public String showEditForm(@PathVariable Long id, Model model) {
         Optional<Infektion> optionalInfektion = infektionService.getInfektionById(id);
         if (optionalInfektion.isPresent()) {

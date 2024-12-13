@@ -1,0 +1,120 @@
+/* Allgemeine Einstellungen */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    text-align: center; /* Zentriert den Inhalt */
+}
+
+/* Header */
+header {
+    background-color: #f05a28; /* Orange */
+    color: #ffffff; /* Weißer Text */
+    padding: 10px 20px;
+    text-align: center; /* Zentriert den Header-Text */
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Links */
+a {
+    background-color: #f05a28; /* Orange Hintergrund */
+    color: #ffffff; /* Weißer Text */
+    text-decoration: none;
+    padding: 4px 8px; /* Kleinere Abstände */
+    border-radius: 4px; /* Runde Ecken für Links */
+    display: inline-block; /* Für besseren Abstand */
+}
+
+a:hover {
+    background-color: #d9481f; /* Dunkleres Orange bei Hover */
+}
+
+/* Formulare */
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px; /* Weniger Polsterung */
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Text im Formular linksbündig */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* Kleinere Abstände */
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 6px; /* Weniger Polsterung */
+    margin-bottom: 15px; /* Weniger Abstand */
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #f05a28;
+    outline: none;
+}
+
+button {
+    background-color: #f05a28;
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px; /* Kleinere Buttons */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em; /* Kleinere Schriftgröße */
+}
+
+button:hover {
+    background-color: #d9481f;
+}
+
+/* Tabellen */
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%; /* Breite der Tabelle */
+    text-align: center; /* Zentriert den Text in den Tabellenzellen */
+}
+
+table th, table td {
+    border: 1px solid #cccccc;
+    padding: 8px; /* Weniger Polsterung in Zellen */
+    font-size: 0.9em; /* Kleinere Schrift */
+}
+
+table th {
+    background-color: #f05a28; /* Orange Hintergrund für Kopfzeilen */
+    color: #ffffff; /* Weißer Text */
+}
+
+/* Fehlermeldungen */
+input:required:invalid {
+    border-color: #ff0000; /* Roter Rahmen für Fehler */
+    background-color: #ffe6e6;
+}
+
+/* Buttons */
+button.sso-button {
+    margin-top: 10px;
+    padding: 6px 12px; /* Kleinere SSO-Buttons */
+    font-size: 0.9em;
+}
+
+/* Zusatz: Abstände und Layout */
+h1 {
+    color: #f05a28;
+    text-align: center;
+    margin-top: 20px;
+}
