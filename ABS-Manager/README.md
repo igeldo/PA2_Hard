@@ -34,14 +34,15 @@ Als alternative Möglichkeit kann der Programmstart auch über die Entwicklungsu
 
 ## Funktionen
 Nach dem Start des Programms können die folgenden Seiten aufgerufen und Datenbankabfragen durchgeführt werden.
+Der erste Link öffnet die erste Seite der Applikation
 ```bash
-http://localhost:8080/behandlungshinweise/view
+http://localhost:8080/gesamtuebersicht/view
 ```
 ```bash
 http://localhost:8080/erregertypen/view
 ```
 ```bash
-http://localhost:8080/gesamtuebersicht/view
+http://localhost:8080/behandlungshinweise/view
 ```
 ```bash
 http://localhost:8080/infektionen/create
