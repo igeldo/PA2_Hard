@@ -4,6 +4,7 @@ import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/ai")
 public class AbsController {
 
     private final OllamaChatModel ollamaChatModel;
@@ -22,12 +24,13 @@ public class AbsController {
     private String fileContent = ""; // Variable zum Speichern des Datei-Inhalts
 
     @Autowired
-    public AbsController(OllamaChatModel ollamaChatModel, OpenAiChatModel openAiChatModel) {
+    public AbsController(@Autowired(required = false) OllamaChatModel ollamaChatModel,
+                         @Autowired(required = false) OpenAiChatModel openAiChatModel) {
         this.ollamaChatModel = ollamaChatModel;
         this.openAiChatModel = openAiChatModel;
     }
 
-    @GetMapping("/ai/simple")
+    @GetMapping("/simple")
     public Map<String, String> generate(@RequestParam(value = "value1") String value1,
                                         @RequestParam(value = "value2") String value2) {
         // Pfad zur txt-Datei
@@ -54,15 +57,38 @@ public class AbsController {
             combinedMessage = "Ich brauche die passenden Antibiotika aus der Liste mit Therapie. : " + value1 + " and " + value2;
         }
 
-        // Aufruf der Modelle mit der kombinierten Nachricht
-        String ollamaResponse = ollamaChatModel.call(combinedMessage);
-        String openAiResponse = openAiChatModel.call(combinedMessage);
+        // Primäre Datenquelle: klassische Datenbank
+        String dbResult = getDatabaseResult(value1, value2);
+
+        // KI nur im Hintergrund ausführen, wenn konfiguriert
+        if (ollamaChatModel != null) {
+            try {
+                ollamaChatModel.call(combinedMessage);
+            } catch (Exception e) {
+                System.out.println("Ollama nicht verfügbar: " + e.getMessage());
+            }
+        }
+
+        if (openAiChatModel != null) {
+            try {
+                openAiChatModel.call(combinedMessage);
+            } catch (Exception e) {
+                System.out.println("OpenAI nicht verfügbar: " + e.getMessage());
+            }
+        }
 
         // Antworten in eine Map speichern
         Map<String, String> response = new HashMap<>();
-        response.put("ollama", ollamaResponse);
-        response.put("openai", openAiResponse);
+        response.put("database", dbResult);
 
         return response;
+    }
+
+    /**
+     * Simuliert eine Datenbankabfrage für das gewünschte Medikament.
+     * Diese Methode wird später durch eine echte DB-Abfrage ersetzt.
+     */
+    private String getDatabaseResult(String infection, String pathogen) {
+        return "Antibiotikum für " + infection + " mit " + pathogen + " aus der Datenbank.";
     }
 }
