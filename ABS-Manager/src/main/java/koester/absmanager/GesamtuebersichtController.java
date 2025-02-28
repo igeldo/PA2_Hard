@@ -27,7 +27,7 @@ public class GesamtuebersichtController {
     @Autowired
     private ErregertypService erregertypService;
 
-    @GetMapping("/")  // Setzt "gesamtuebersicht.html" als Startseite
+    @GetMapping("/view")  // Setzt "gesamtuebersicht.html" als Startseite
     public String showGesamtuebersicht() {
         return "gesamtuebersicht"; // Ohne .html, da Thymeleaf das automatisch ergänzt
     }
