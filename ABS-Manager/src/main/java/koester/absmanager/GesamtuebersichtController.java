@@ -27,11 +27,9 @@ public class GesamtuebersichtController {
     @Autowired
     private ErregertypService erregertypService;
 
-    @GetMapping("/view")
-    public String showGesamtuebersicht(Model model) {
-        List<Behandlungshinweis> behandlungshinweise = behandlungshinweisService.getAllBehandlungshinweise();
-        model.addAttribute("behandlungshinweise", behandlungshinweise);
-        return "gesamtuebersicht";  // Verweist auf gesamtuebersicht.html
+    @GetMapping("/")  // Setzt "gesamtuebersicht.html" als Startseite
+    public String showGesamtuebersicht() {
+        return "gesamtuebersicht"; // Ohne .html, da Thymeleaf das automatisch ergänzt
     }
 }
 
